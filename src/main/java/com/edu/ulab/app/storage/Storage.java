@@ -1,21 +1,44 @@
 package com.edu.ulab.app.storage;
 
-import com.edu.ulab.app.dto.UserDto;
+import com.edu.ulab.app.entity.book.BookEntity;
+import com.edu.ulab.app.entity.user.UserEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@Slf4j
 public class Storage {
 
-    //todo создать хранилище в котором будут содержаться данные
-    // сделать абстракции через которые можно будет производить операции с хранилищем
-    // продумать логику поиска и сохранения
-    // продумать возможные ошибки
-    // учесть, что при сохранеии юзера или книги, должен генерироваться идентификатор
-    // продумать что у узера может быть много книг и нужно создать эту связь
-    // так же учесть, что методы хранилища принимают другой тип данных - учесть это в абстракции
+    private List<UserEntity> userEntityList = new ArrayList<>();
+    private List<BookEntity> bookEntityList = new ArrayList<>();
+
+    public List<UserEntity> getUserEntityList() {
+        return userEntityList;
+    }
+
+    public void setUserEntityList(List<UserEntity> userEntityList) {
+        this.userEntityList = userEntityList;
+    }
+
+    public List<BookEntity> getBookEntityList() {
+        return bookEntityList;
+    }
+
+    public void setBookEntityList(List<BookEntity> bookEntityList) {
+        this.bookEntityList = bookEntityList;
+    }
+
+    public void printData() { //TODO test usage only [remove]
+        System.out.println();
+        userEntityList.forEach(element -> System.out.println("REPO: USER " + element));
+        System.out.println();
+        bookEntityList.forEach(element -> System.out.println("REPO: BOOK " + element));
+        System.out.println();
+    }
+
 }
 
 
