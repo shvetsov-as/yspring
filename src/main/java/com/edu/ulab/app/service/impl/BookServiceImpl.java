@@ -42,10 +42,10 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public BookDto updateBook(BookDto bookDto, Long userId) {
-        BookEntity entity = storageUtils.findById(bookDto.getId());
-        if (!bookDto.getId().equals(userId)) {
-            entity.setUserId(userId);
+    public BookDto updateBook(BookDto bookDto, Long bookId) {
+        BookEntity entity = storageUtils.findById(bookId);
+        if (null != bookDto.getUserId()) {
+            entity.setUserId(bookDto.getUserId());
         }
         if (null != bookDto.getTitle()) {
             entity.setTitle(bookDto.getTitle());
@@ -56,20 +56,14 @@ public class BookServiceImpl implements BookService {
         if (0L != bookDto.getPageCount()) {
             entity.setPageCount(bookDto.getPageCount());
         }
+        log.info("Updated book: {}", entity);
         return bookEntityMapper.bookEntityToBookDto(entity);
     }
 
     @Override
     public List<BookDto> updateAllBooksByUserId(List<BookDto> bookDtoList, Long userId) {
-        List<BookEntity> entityList = storageUtils.findAll()
-                .stream()
-                .filter(Objects::nonNull)
-                .filter(book -> userId.equals(book.getUserId()))
-                .toList();
-
-        return entityList.stream()
-                .map(entity -> updateBook(bookEntityMapper.bookEntityToBookDto(entity), entity.getUserId()))
-                .toList();
+        bookDtoList.forEach(book -> updateBook(book, book.getId()));
+        return bookDtoList;
     }
 
     @Override

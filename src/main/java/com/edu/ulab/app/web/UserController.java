@@ -43,6 +43,11 @@ public class UserController {
     }
 
     @PutMapping(value = "/update/{userId}")
+    @Operation(summary = "Update user with books",
+            responses = {
+                    @ApiResponse(description = "User id - books [Long... bookId] ",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserBookResponse.class)))})
     public UserBookResponse updateUserWithBooks(@RequestBody UserBookRequest request, @PathVariable Long userId) {
         UserBookResponse response = userDataFacade.updateUserWithBooks(request, userId);
         log.info("Response with updated user and his books: {}", response);
@@ -50,6 +55,11 @@ public class UserController {
     }
 
     @GetMapping(value = "/get/{userId}")
+    @Operation(summary = "Find user by UserId with all books",
+            responses = {
+                    @ApiResponse(description = "User id - books [Long... bookId] ",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserBookResponse.class)))})
     public UserBookResponse findUserByIdWithBooks(@PathVariable Long userId) {
         UserBookResponse response = userDataFacade.getUserWithBooks(userId);
         log.info("Response with user and his books: {}", response);
@@ -57,6 +67,11 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete/{userId}")
+    @Operation(summary = "Delete user with books",
+            responses = {
+                    @ApiResponse(description = "User id - books [Long... bookId] ",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserBookResponse.class)))})
     public void deleteUserWithBooks(@PathVariable Long userId) {
         log.info("Delete user and his books:  userId {}", userId);
         userDataFacade.deleteUserWithBooks(userId);

@@ -51,7 +51,7 @@ public class UserStorageUtilsImpl implements StorageUtils<UserEntity, Long> {
     @Override
     public UserEntity findById(@NotNull Long id) {
         //return new UserEntity = new storage object
-        return storage.getUserEntityList()//TODO make thread-safe
+        return storage.getUserEntityList()
                 .stream()
                 .filter(Objects::nonNull)
                 .filter(user -> id.equals(user.getId()))
@@ -61,7 +61,7 @@ public class UserStorageUtilsImpl implements StorageUtils<UserEntity, Long> {
 
     @Override
     public List<UserEntity> findAll() {
-        return storage.getUserEntityList(); //TODO make thread-safe
+        return storage.getUserEntityList();
     }
 
     @Override

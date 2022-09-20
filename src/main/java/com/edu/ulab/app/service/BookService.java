@@ -8,7 +8,7 @@ import java.util.List;
 public interface BookService {
     BookDto createBook(BookDto userDto);
 
-    BookDto updateBook(BookDto userDto, Long userId);
+    BookDto updateBook(BookDto userDto, Long bookId);
 
     List<BookDto> updateAllBooksByUserId(List<BookDto> bookDtoList, Long userId);
 
