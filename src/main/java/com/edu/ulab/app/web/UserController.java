@@ -43,7 +43,8 @@ public class UserController {
     }
 
     @PutMapping(value = "/update/{userId}")
-    @Operation(summary = "Update user with books",
+    @Operation(summary = "Update user with books", description = "Need to exclude the id of updated user from \"bookRequests\" and include" +
+            " the id of updated books in the request. All not empty parameters will be updated.",
             responses = {
                     @ApiResponse(description = "User id - books [Long... bookId] ",
                             content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
@@ -67,11 +68,7 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/delete/{userId}")
-    @Operation(summary = "Delete user with books",
-            responses = {
-                    @ApiResponse(description = "User id - books [Long... bookId] ",
-                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
-                                    schema = @Schema(implementation = UserBookResponse.class)))})
+    @Operation(summary = "Delete user with books")
     public void deleteUserWithBooks(@PathVariable Long userId) {
         log.info("Delete user and his books:  userId {}", userId);
         userDataFacade.deleteUserWithBooks(userId);
