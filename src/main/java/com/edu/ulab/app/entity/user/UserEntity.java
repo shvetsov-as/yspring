@@ -1,11 +1,13 @@
 package com.edu.ulab.app.entity.user;
 
 import com.edu.ulab.app.entity.book.BookEntity;
+import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Data
 public class UserEntity {
 
     private static final AtomicLong sequence = new AtomicLong();
@@ -38,70 +40,6 @@ public class UserEntity {
         this.age = age;
         this.bookList = bookList;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public List<BookEntity> getBookList() {
-        return bookList;
-    }
-
-    public void setBookList(List<BookEntity> bookList) {
-        this.bookList = bookList;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof UserEntity)) return false;
-
-        UserEntity that = (UserEntity) o;
-
-        if (!id.equals(that.id)) return false;
-        return getFullName().equals(that.getFullName());
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id.hashCode();
-        result = 31 * result + getFullName().hashCode();
-        return result;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", fullName='" + fullName + '\'' +
-                ", title='" + title + '\'' +
-                ", age=" + age +
-                ", bookList=" + bookList +
-                '}';
-    }
 }
+
 

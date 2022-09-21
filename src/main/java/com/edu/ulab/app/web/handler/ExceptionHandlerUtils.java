@@ -11,8 +11,9 @@ public final class ExceptionHandlerUtils {
         StringBuilder message =
                 new StringBuilder(ExceptionUtils.getMessage(t));
 
-        Throwable cause;
-        if ((cause = t.getCause()) != null) {
+        Throwable cause = t.getCause();
+
+        if (null != cause) {
             message.append(", cause: ").append(ExceptionUtils.getMessage(cause));
         }
 

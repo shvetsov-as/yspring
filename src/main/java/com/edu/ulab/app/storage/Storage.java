@@ -5,40 +5,34 @@ import com.edu.ulab.app.entity.user.UserEntity;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 @Slf4j
 public class Storage {
 
-    private List<UserEntity> userEntityList = new ArrayList<>();
-    private List<BookEntity> bookEntityList = new ArrayList<>();
+    private Map<Long, UserEntity> userEntityMap = new HashMap<>();
 
-    public List<UserEntity> getUserEntityList() {
-        return userEntityList;
+    private Map<Long, BookEntity> bookEntityMap = new HashMap<>();
+
+    public Map<Long, UserEntity> getUserEntityMap() {
+        log.info("Get user data from storage");
+        return userEntityMap;
     }
 
-    public void setUserEntityList(List<UserEntity> userEntityList) {
-        this.userEntityList = userEntityList;
+    public void setUserEntityMap(Map<Long, UserEntity> userEntityMap) {
+        this.userEntityMap = userEntityMap;
     }
 
-    public List<BookEntity> getBookEntityList() {
-        return bookEntityList;
+    public Map<Long, BookEntity> getBookEntityMap() {
+        log.info("Get book data from storage");
+        return bookEntityMap;
     }
 
-    public void setBookEntityList(List<BookEntity> bookEntityList) {
-        this.bookEntityList = bookEntityList;
+    public void setBookEntityMap(Map<Long, BookEntity> bookEntityMap) {
+        this.bookEntityMap = bookEntityMap;
     }
-
-    public void printData() { //TODO test usage only [remove]
-        System.out.println();
-        userEntityList.forEach(element -> System.out.println("REPO: USER " + element));
-        System.out.println();
-        bookEntityList.forEach(element -> System.out.println("REPO: BOOK " + element));
-        System.out.println();
-    }
-
 }
 
 
