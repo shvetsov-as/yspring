@@ -22,6 +22,7 @@ import static com.edu.ulab.app.web.constant.WebConstant.RQID;
 @RequestMapping(value = WebConstant.VERSION_URL + "/user",
         produces = MediaType.APPLICATION_JSON_VALUE)
 public class UserController {
+
     private final UserDataFacade userDataFacade;
 
     public UserController(UserDataFacade userDataFacade) {
@@ -41,21 +42,33 @@ public class UserController {
         return response;
     }
 
-    @PutMapping(value = "/update")
-    public UserBookResponse updateUserWithBooks(@RequestBody UserBookRequest request) {
-        UserBookResponse response = userDataFacade.updateUserWithBooks(request);
+    @PutMapping(value = "/update/{userId}")
+    @Operation(summary = "Update user with books", description = "Need to exclude the id of updated user from \"bookRequests\" and include" +
+            " the id of updated books in the request. All not empty parameters will be updated.",
+            responses = {
+                    @ApiResponse(description = "User id - books [Long... bookId] ",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserBookResponse.class)))})
+    public UserBookResponse updateUserWithBooks(@RequestBody UserBookRequest request, @PathVariable Long userId) {
+        UserBookResponse response = userDataFacade.updateUserWithBooks(request, userId);
         log.info("Response with updated user and his books: {}", response);
         return response;
     }
 
     @GetMapping(value = "/get/{userId}")
-    public UserBookResponse updateUserWithBooks(@PathVariable Long userId) {
+    @Operation(summary = "Find user by UserId with all books",
+            responses = {
+                    @ApiResponse(description = "User id - books [Long... bookId] ",
+                            content = @Content(mediaType = MediaType.APPLICATION_JSON_VALUE,
+                                    schema = @Schema(implementation = UserBookResponse.class)))})
+    public UserBookResponse findUserByIdWithBooks(@PathVariable Long userId) {
         UserBookResponse response = userDataFacade.getUserWithBooks(userId);
         log.info("Response with user and his books: {}", response);
         return response;
     }
 
     @DeleteMapping(value = "/delete/{userId}")
+    @Operation(summary = "Delete user with books")
     public void deleteUserWithBooks(@PathVariable Long userId) {
         log.info("Delete user and his books:  userId {}", userId);
         userDataFacade.deleteUserWithBooks(userId);
